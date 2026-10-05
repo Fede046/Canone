@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sfondo dell'icona: nero con un alone viola al centro -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54"
+                android:centerY="50"
+                android:gradientRadius="70">
+                <item android:offset="0" android:color="#FF3A1468" />
+                <item android:offset="0.55" android:color="#FF190A2E" />
+                <item android:offset="1" android:color="#FF0B0A10" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

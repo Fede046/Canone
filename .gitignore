@@ -1,0 +1,38 @@
+# Android / Gradle
+.gradle/
+build/
+app/build/
+**/build/
+local.properties
+*.iml
+.idea/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Keystore & Signing
+app/keystore.jks
+keystore.properties
+
+# Firebase (opzionale - commenta se vuoi mantenerlo tracciato)
+app/google-services.json
+
+# IDE
+.idea/
+
+# Artifacts
+.artifacts/
+
+# Gradle wrapper jar (binario)
+*.jar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Reports
+build/
+**/build/reports/
+# Note di lavoro (backup nella repository privata Canone-YT)
+.agent/

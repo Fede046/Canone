@@ -1,0 +1,14 @@
+{
+  "name": "admin-panel",
+  "version": "1.0.0",
+  "description": "Pannello unico di amministrazione per catalogo e utenti",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "firebase-admin": "^12.1.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "music-player-showreel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Music Player / Canone videos (explainers + showreel), built with Remotion",
+  "scripts": {
+    "studio": "npm run music && npm run explainer:music && remotion studio",
+    "canone:studio": "npm run canone:music && remotion studio",
+    "canone:songs": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/canone/prepare-songs.mjs",
+    "canone:music": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/canone/make-music.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/canone/analyze-soundtrack.mjs",
+    "canone:public:horizontal": "remotion render Canone-Public-Horizontal out/canone-public-horizontal.mp4 --crf=20",
+    "canone:public:vertical": "remotion render Canone-Public-Vertical out/canone-public-vertical.mp4 --crf=20",
+    "canone:dev:horizontal": "remotion render Canone-Dev-Horizontal out/canone-dev-horizontal.mp4 --crf=20",
+    "canone:dev:vertical": "remotion render Canone-Dev-Vertical out/canone-dev-vertical.mp4 --crf=20",
+    "canone:render": "npm run canone:music && npm run canone:public:horizontal && npm run canone:public:vertical && npm run canone:dev:horizontal && npm run canone:dev:vertical",
+    "explainer:music": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/make-explainer-music.mjs",
+    "explainer:horizontal": "remotion render Explainer-Horizontal out/explainer-horizontal.mp4",
+    "explainer:vertical": "remotion render Explainer-Vertical out/explainer-vertical.mp4",
+    "explainer:render": "npm run explainer:music && npm run explainer:horizontal && npm run explainer:vertical",
+    "music": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/make-music.mjs",
+    "render:vertical": "remotion render Showreel-Vertical out/showreel-vertical.mp4",
+    "render:horizontal": "remotion render Showreel-Horizontal out/showreel-horizontal.mp4",
+    "render:gif": "node scripts/make-gif.mjs",
+    "render": "npm run music && npm run render:vertical && npm run render:horizontal && npm run render:gif",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.532",
+    "@remotion/google-fonts": "4.0.532",
+    "@remotion/motion-blur": "4.0.532",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "remotion": "4.0.532"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}

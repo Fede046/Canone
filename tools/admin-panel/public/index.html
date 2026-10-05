@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pannello di Amministrazione</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.7/jsmediatags.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header class="header">
+      <div class="eyebrow">Console locale — 127.0.0.1:3002</div>
+      <h1>Pannello di Amministrazione</h1>
+      <div class="subtitle">Gestione unificata per catalogo musicale, utenti e credenziali Firebase.</div>
+    </header>
+
+    <!-- Navigazione Tab Principale -->
+    <nav class="nav-bar">
+      <button class="nav-btn active" data-tab="catalog">Catalogo</button>
+      <button class="nav-btn" data-tab="users">Utenti</button>
+      <button class="nav-btn" data-tab="settings">Impostazioni</button>
+    </nav>
+
+    <!-- ==================== SEZIONE CATALOGO ==================== -->
+    <section id="catalogSection" class="tab-content">
+      <!-- GESTIONE PER UTENTE -->
+      <div id="singleUserView">
+        <!-- Pannello Selezione Utente -->
+        <div class="panel">
+          <div class="panel-title">Profilo utente</div>
+          <div class="user-selector">
+            <label for="userSelect">Seleziona utente:</label>
+            <select id="userSelect">
+              <option value="">— Seleziona un profilo —</option>
+            </select>
+            <span class="user-info" id="userInfo"></span>
+          </div>
+        </div>
+
+        <!-- Contenuto Utente (visibile solo se utente selezionato) -->
+        <div id="singleContent" style="display: none;">
+          <!-- Upload Manuale -->
+          <div class="panel">
+            <div class="panel-title">Nuova canzone (Upload manuale)</div>
+            <div class="alert-box alert-warning">
+              ⚠️ <strong>Responsabilità sui contenuti</strong>: carica solo brani di cui hai i diritti (tuoi, liberi da diritti o con una licenza che ne consente la distribuzione). Chi usa il pannello è l'unico responsabile dei file che carica; l'autore del software non controlla i contenuti e non risponde di eventuali violazioni di copyright.
+            </div>
+            <div class="drop-zone" id="dropZone">
+              <div id="dropZoneText"><strong>Trascina l'mp3 qui</strong> oppure clicca per selezionarlo</div>
+              <input type="file" id="mp3Input" accept="audio/mpeg,.mp3" style="display:none">
+            </div>
+
+            <div class="cover-row">
+              <div class="cover-thumb" id="coverThumb"></div>
+              <button type="button" class="action-btn-sm" id="coverPickBtn">Scegli copertina (opzionale)</button>
+              <input type="file" id="coverInput" accept="image/*" style="display:none">
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="titleInput">Titolo</label>
+                <input type="text" id="titleInput" placeholder="Titolo della canzone">
+              </div>
+              <div class="field">
+                <label for="artistInput">Artista</label>
+                <input type="text" id="artistInput" placeholder="Nome artista">
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field readout">
+                <label for="durationReadout">Durata</label>
+                <input type="text" id="durationReadout" readonly value="—">
+              </div>
+              <div class="field readout">
+                <label for="sizeReadout">Dimensione file</label>
+                <input type="text" id="sizeReadout" readonly value="—">
+              </div>
+            </div>
+
+            <button class="primary-btn" id="submitBtn" disabled style="width: 100%; margin-top: 14px;">Carica su Firebase</button>
+            <div class="status-line" id="uploadStatusLine"></div>
+          </div>
+
+          <!-- Catalogo Attuale -->
+          <div class="panel">
+            <div class="panel-title">Catalogo attuale</div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Titolo</th>
+                    <th>Artista</th>
+                    <th>Durata</th>
+                    <th>Dimensione</th>
+                    <th>Azioni</th>
+                  </tr>
+                </thead>
+                <tbody id="songsBody">
+                  <tr class="empty-row"><td colspan="5">Caricamento canzoni…</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="deleteAllSection" style="display: none; margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px;">
+              <button class="danger-btn" id="deleteAllBtn" style="width: 100%;">🗑 Elimina TUTTE le canzoni di questo utente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SEZIONE UTENTI ==================== -->
+    <section id="usersSection" class="tab-content" style="display: none;">
+      <!-- Nuovo utente -->
+      <div class="panel">
+        <div class="panel-title">Nuovo utente</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="newUsername">Username</label>
+            <input type="text" id="newUsername" placeholder="es. mario_rossi" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="newPassword">Password</label>
+            <input type="password" id="newPassword" placeholder="Password in chiaro" autocomplete="new-password">
+          </div>
+          <div class="field field-narrow">
+            <label for="newLimit">Limite giornaliero</label>
+            <input type="number" id="newLimit" value="5" min="1" step="1">
+          </div>
+        </div>
+        <button type="button" class="primary-btn" id="createUserBtn" style="margin-top: 6px; width: 100%;">Crea utente</button>
+        <div class="status-line" id="createUserStatus" style="display: none;"></div>
+      </div>
+
+      <!-- Utenti registrati -->
+      <div class="panel">
+        <div class="panel-title">Utenti registrati</div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Limite / Oggi</th>
+                <th>Ultimo download</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <tr class="empty-row"><td colspan="4">Caricamento utenti…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SEZIONE IMPOSTAZIONI ==================== -->
+    <section id="settingsSection" class="panel tab-content" style="display: none;">
+      <div class="panel-title">Connessione Firebase</div>
+
+      <div class="status-card">
+        <div class="status-header">
+          <span class="status-label">Stato Connessione:</span>
+          <span id="statusBadge" class="badge badge-disconnected">Verifica in corso…</span>
+        </div>
+        <div id="connectionDetails" class="connection-details" style="display: none;">
+          <div class="detail-row">
+            <span class="detail-label">Progetto Firebase:</span>
+            <span id="projectIdVal" class="detail-val mono">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Bucket Storage:</span>
+            <span id="storageBucketVal" class="detail-val mono">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="alertBox" class="alert-box" style="display: none;"></div>
+
+      <div class="form-container">
+        <h3 id="formTitle">Carica chiave del database</h3>
+        <p class="form-description">
+          Seleziona il file JSON del service account Firebase scaricato dalla console Google Cloud / Firebase.
+          La chiave verrà verificata in tempo reale e memorizzata localmente in modo protetto.
+        </p>
+
+        <form id="keyForm">
+          <div class="field">
+            <label for="keyFileInput">File JSON delle credenziali</label>
+            <input type="file" id="keyFileInput" accept=".json,application/json" required>
+          </div>
+
+          <div id="customBucketGroup" class="field" style="display: none;">
+            <label for="customBucketInput">Nome bucket Storage (manuale)</label>
+            <input type="text" id="customBucketInput" placeholder="es. tuo-progetto.appspot.com">
+            <small class="field-hint">Compila solo se i bucket predefiniti non sono stati rilevati automaticamente.</small>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" id="saveKeyBtn" class="primary-btn">Salva chiave</button>
+            <button type="button" id="deleteKeyBtn" class="danger-btn" style="display: none;">Elimina chiave</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== MODALI ==================== -->
+
+  <!-- Modale Modifica Canzone -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <div class="modal-title">Modifica canzone</div>
+      <div class="field">
+        <label for="editTitleInput">Titolo</label>
+        <input type="text" id="editTitleInput" placeholder="Titolo">
+      </div>
+      <div class="field" style="margin-top: 12px;">
+        <label for="editArtistInput">Artista</label>
+        <input type="text" id="editArtistInput" placeholder="Artista">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" id="editCancelBtn">Annulla</button>
+        <button type="button" class="primary-btn" id="editSaveBtn">Salva modifiche</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Eliminazione Tutte le Canzoni -->
+  <div class="modal-overlay" id="deleteAllModal">
+    <div class="modal">
+      <div class="modal-title danger">Attenzione: Eliminazione massiva</div>
+      <p style="font-size: 13.5px; color: var(--text-dim); line-height: 1.5; margin: 0 0 14px;">
+        Stai per eliminare <strong>TUTTE</strong> le canzoni dell'utente <span id="deleteAllUsername" style="color:var(--text); font-weight:600;"></span> da Firestore e da Firebase Storage.
+      </p>
+      <p style="font-size: 13px; color: var(--red); margin: 0 0 10px;">
+        Questa operazione è irreversibile. Per confermare, digita esattamente <strong>EliminaTutteLeCanzoni</strong> nel campo sottostante:
+      </p>
+      <div class="field">
+        <input type="text" id="deleteAllConfirmInput" placeholder="Digita EliminaTutteLeCanzoni">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" id="deleteAllCancelBtn">Annulla</button>
+        <button type="button" class="danger-btn" id="deleteAllConfirmBtn" disabled>Elimina tutto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Modifica Utente (Task 12) -->
+  <div class="modal-overlay" id="modalEditUser">
+    <div class="modal">
+      <h2 id="modalEditUserTitle" style="font-size: 18px; margin: 0 0 16px; font-weight: 600;">Modifica utente</h2>
+      <div class="field">
+        <label for="editUserUsername">Username</label>
+        <input type="text" id="editUserUsername" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="editUserPassword">Nuova password (lascia vuoto per non cambiarla)</label>
+        <input type="password" id="editUserPassword" placeholder="Nuova password" autocomplete="new-password">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="editUserLimit">Limite giornaliero</label>
+          <input type="number" id="editUserLimit" min="1" step="1">
+        </div>
+        <div class="field">
+          <label for="editUserDownloadedToday">Scaricati oggi</label>
+          <input type="number" id="editUserDownloadedToday" min="0" step="1">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" id="editUserCancelBtn">Annulla</button>
+        <button type="button" class="primary-btn" id="editUserSaveBtn">Salva modifiche</button>
+      </div>
+      <div class="status-line" id="editUserStatus" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
