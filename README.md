@@ -7,83 +7,85 @@
 [![Min SDK](https://img.shields.io/badge/minSdk-26-FF6D00?logo=android)](https://developer.android.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-App musicale Android in stile Spotify, nera e viola, scritta in **Kotlin** con **Jetpack Compose**.
-Accedi con l'account creato dal pannello di amministrazione, scarica i brani del tuo catalogo Firebase per ascoltarli offline per sempre, organizzali in playlist e **guardali suonare**: tre *Zone* a schermo intero (**MZ**, **CZ**, **FZ**) analizzano ogni brano direttamente sul telefono e lo trasformano in immagini.
+A Spotify-style Android music app, black and purple, written in **Kotlin** with **Jetpack Compose**.
+Sign in with the account created in the admin panel, download the songs of your Firebase catalog to listen offline forever, organize them into playlists and **watch them play**: three full-screen *Zones* (**MZ**, **CZ**, **FZ**) analyze every song directly on the phone and turn it into visuals.
+
+> The app's interface is in Italian; in this README the Italian labels are given in *italics* next to their English meaning.
 
 ---
 
-## 🎬 Video
+## 🎬 Videos
 
-| | Orizzontale (README, YouTube) | Verticale (social) |
+| | Horizontal (README, YouTube) | Vertical (social) |
 |---|---|---|
-| **Per tutti** — *See what you hear.* (61 s) | [canone-public-horizontal.mp4](video/out/canone-public-horizontal.mp4) | [canone-public-vertical.mp4](video/out/canone-public-vertical.mp4) |
-| **Per sviluppatori** — *Know every beat before it plays.* (82 s): installazione, pannello, come funzionano le Zone | [canone-dev-horizontal.mp4](video/out/canone-dev-horizontal.mp4) | [canone-dev-vertical.mp4](video/out/canone-dev-vertical.mp4) |
+| **For everyone** — *See what you hear.* (61 s) | [canone-public-horizontal.mp4](video/out/canone-public-horizontal.mp4) | [canone-public-vertical.mp4](video/out/canone-public-vertical.mp4) |
+| **For developers** — *Know every beat before it plays.* (82 s): setup, admin panel, how the Zones work | [canone-dev-horizontal.mp4](video/out/canone-dev-horizontal.mp4) | [canone-dev-vertical.mp4](video/out/canone-dev-vertical.mp4) |
 
-I video sono fatti con [Remotion](https://www.remotion.dev) nella cartella [`video/`](video/README.md), con colonna sonora sintetizzata da codice e con estratti di due brani originali dell'autore, "84" e "Celestial Citadel". Le Zone che si vedono sono guidate dall'analisi vera di questi due brani, calcolata con lo stesso algoritmo dell'app.
+The videos are made with [Remotion](https://www.remotion.dev) in the [`video/`](video/README.md) folder, with a soundtrack synthesized in code and excerpts from two original songs by the author, "84" and "Celestial Citadel". The Zones you see are driven by the real analysis of these two songs, computed with the same algorithm as the app.
 
-## ✨ Caratteristiche
+## ✨ Features
 
-- 🔐 **Accesso** — username e password creati dal pannello; ogni utente ha il suo catalogo e un limite di download giornaliero
-- 🗂️ **Sfoglia** — il catalogo online dell'utente, con ricerca e filtro per autore; una copia locale lo rende subito disponibile all'apertura
-- ⬇️ **Download permanente** — audio e copertina restano sul telefono: si ascolta anche senza connessione
-- 📚 **Libreria** — ricerca, filtro per artista e menu con la pressione prolungata: aggiungi a playlist, modifica titolo e artista (solo sul telefono), elimina dal telefono
-- 🎶 **Playlist** — con un colore ciascuna, create dal menu di un brano, dal player o dalla schermata Playlist
-- ▶️ **Riproduzione in background** — notifica con i comandi, casuale, ripeti (brano o coda), sleep timer (Media3 / ExoPlayer)
-- 🌌 **Music Zone (MZ)** — una curva perfettamente simmetrica, da 3 a 8 lobi, che respira con la musica; colori dalla copertina e una nebulosa diversa per ogni brano
-- 🎡 **Circle Zone (CZ)** — tonalità, accordi, tempo e tre voci stimati dall'audio, disegnati su una ruota di ettagoni (uno per ottava), con la melodia ripresa a canone
-- 🌲 **Firewatch Zone (FZ)** — una torretta nel bosco: il cielo segue l'ora del telefono, gli stormi seguono l'energia del brano
-- ⚙️ **Impostazioni** — quanto resta acceso lo schermo nelle Zone: come il telefono, sempre mentre la musica suona, oppure 5–60 minuti dall'ultimo tocco
-- ❓ **Guida** integrata (tasto “?”) con tutte le funzioni
-- 🎨 Tema sempre scuro, nero e viola; icona con la chiave di sol
+- 🔐 **Sign-in** — username and password created in the admin panel; each user has their own catalog and a daily download limit
+- 🗂️ **Browse** (*Sfoglia*) — the user's online catalog, with search and an artist filter; a local copy makes it available instantly at startup
+- ⬇️ **Permanent download** — audio and cover art stay on the phone: you can listen without a connection
+- 📚 **Library** (*Libreria*) — search, artist filter and a long-press menu: add to playlist, edit title and artist (on the phone only), delete from the phone
+- 🎶 **Playlists** — each with its own color, created from a song's menu, from the player or from the Playlists screen
+- ▶️ **Background playback** — notification with controls, shuffle, repeat (song or queue), sleep timer (Media3 / ExoPlayer)
+- 🌌 **Music Zone (MZ)** — a perfectly symmetric curve, from 3 to 8 lobes, that breathes with the music; colors from the cover art and a different nebula for every song
+- 🎡 **Circle Zone (CZ)** — key, chords, tempo and three voices estimated from the audio, drawn on a wheel of heptagons (one per octave), with the melody echoed in canon
+- 🌲 **Firewatch Zone (FZ)** — a lookout tower in the woods: the sky follows the phone's clock, the flocks of birds follow the song's energy
+- ⚙️ **Settings** — how long the screen stays on in the Zones: like the phone, always while music is playing, or 5–60 minutes after the last touch
+- ❓ Built-in **guide** (“?” button) covering every feature
+- 🎨 Always-dark theme, black and purple; treble clef icon
 - 📱 Android 8.0+ (minSdk 26)
 
-## 🧠 Come funzionano le Zone
+## 🧠 How the Zones work
 
-Le Zone non usano il `Visualizer` di Android (che richiede il permesso del microfono e ascolta solo l'istante presente): **leggono il file scaricato** con `MediaExtractor` + `MediaCodec`, lo riducono a mono e lo analizzano in background, molto più in fretta della riproduzione. L'app non chiede `RECORD_AUDIO`.
+The Zones don't use Android's `Visualizer` (which needs the microphone permission and only hears the present instant): they **read the downloaded file** with `MediaExtractor` + `MediaCodec`, downmix it to mono and analyze it in the background, much faster than playback. The app never asks for `RECORD_AUDIO`.
 
-- **MZ** — FFT da 1024 punti, energia di 6 bande 30 volte al secondo, salvata come byte. La figura è `z(s) = e^(is) + a·e^(i(1+k)s) + b·e^(i(1-2k)s)`: i medi decidono `a`, gli alti `b`, i bassi il respiro, ma la simmetria di ordine `k` resta esatta. `k` segue 3-4-5-6-7-8-7-6-5-4 e cambia sul primo colpo forte dopo almeno 8 secondi.
-- **CZ** — energia dei 72 semitoni da Mi1 a Re♯7; la tonalità è quella dei 24 profili di Krumhansl-Kessler con la correlazione più alta, gli accordi il percorso migliore (Viterbi) fra le triadi, con un costo per ogni cambio, così non tremolano; il tempo viene dall'autocorrelazione degli attacchi.
-- **FZ** — volume, brillantezza, densità dei colpi forti e dinamica interna diventano un'unica curva d'energia con tre stati (calmo, intermedio, energico) con margine e permanenza minima; la scena la legge **2 secondi in anticipo**, così gli stormi arrivano insieme al ritornello.
+- **MZ** — 1024-point FFT, energy of 6 bands 30 times per second, stored as bytes. The figure is `z(s) = e^(is) + a·e^(i(1+k)s) + b·e^(i(1-2k)s)`: the mids drive `a`, the highs `b`, the bass the breathing, while the order-`k` symmetry stays exact. `k` follows 3-4-5-6-7-8-7-6-5-4 and changes on the first strong beat after at least 8 seconds.
+- **CZ** — energy of the 72 semitones from E1 to D♯7; the key is the one among the 24 Krumhansl-Kessler profiles with the highest correlation, the chords are the best path (Viterbi) through the triads, with a cost for every change so they don't flicker; the tempo comes from the autocorrelation of the onsets.
+- **FZ** — loudness, brightness, density of strong beats and internal dynamics become a single energy curve with three states (calm, medium, energetic), with hysteresis and a minimum dwell time; the scene reads it **2 seconds ahead**, so the flocks arrive together with the chorus.
 
-Ogni analisi si fa una volta per brano e resta in cache in `filesDir`; a ogni avvio `AnalysisCacheCleaner` cancella le cache dei brani non più in libreria.
+Each analysis runs once per song and is cached in `filesDir`; at every startup `AnalysisCacheCleaner` deletes the caches of songs no longer in the library.
 
-## 🛠️ Tecnologie utilizzate
+## 🛠️ Tech stack
 
-| Categoria | Tecnologia |
+| Category | Technology |
 |-----------|-----------|
-| **Linguaggio** | Kotlin 1.9.24 |
+| **Language** | Kotlin 1.9.24 |
 | **UI** | Jetpack Compose (BOM 2024.06) + Material Design 3 |
-| **Database locale** | Room 2.6.1 (brani scaricati, catalogo in cache, playlist) |
+| **Local database** | Room 2.6.1 (downloaded songs, cached catalog, playlists) |
 | **Backend** | Firebase Firestore + Firebase Storage |
-| **Riproduzione** | Media3 1.4.0 (ExoPlayer + MediaSession) |
-| **Analisi audio** | `MediaExtractor` / `MediaCodec` + FFT propria (`playback/analysis`) |
-| **Colori delle Zone** | AndroidX Palette |
+| **Playback** | Media3 1.4.0 (ExoPlayer + MediaSession) |
+| **Audio analysis** | `MediaExtractor` / `MediaCodec` + custom FFT (`playback/analysis`) |
+| **Zone colors** | AndroidX Palette |
 | **DI** | Dagger Hilt 2.51.1 |
-| **Download** | Coroutines + Firebase Storage |
-| **Copertine** | Coil 2.6.0 |
-| **Navigazione** | Navigation Compose |
-| **Pannello** | Node.js + Express + firebase-admin, ffmpeg |
-| **Video** | Remotion |
+| **Downloads** | Coroutines + Firebase Storage |
+| **Cover art** | Coil 2.6.0 |
+| **Navigation** | Navigation Compose |
+| **Admin panel** | Node.js + Express + firebase-admin, ffmpeg |
+| **Videos** | Remotion |
 
-## 📋 Prerequisiti
+## 📋 Requirements
 
-- Android Studio **Koala** (2024.1.1) o successivo, JDK **17**
-- Un progetto Firebase con **Firestore** e **Storage**
-- Per il pannello di amministrazione: **Node.js** (provato con la 24.12) e **ffmpeg** nel `PATH` (vedi il suo [README](tools/admin-panel/README.md))
+- Android Studio **Koala** (2024.1.1) or later, JDK **17**
+- A Firebase project with **Firestore** and **Storage**
+- For the admin panel: **Node.js** (tested with 24.12) and **ffmpeg** on the `PATH` (see its [README](tools/admin-panel/README.md), in Italian)
 
 ## 🚀 Setup
 
-### 1️⃣ Firebase e app
+### 1️⃣ Firebase and app
 
-1. Nella [Firebase Console](https://console.firebase.google.com) crea un progetto (o usane uno esistente) e attiva **Firestore Database** e **Storage**
-2. Aggiungi un'app **Android** con package `com.example.musicplayer`
-3. Scarica `google-services.json` e copialo in `app/google-services.json`
+1. In the [Firebase Console](https://console.firebase.google.com) create a project (or use an existing one) and enable **Firestore Database** and **Storage**
+2. Add an **Android** app with package `com.example.musicplayer`
+3. Download `google-services.json` and copy it to `app/google-services.json`
 
-   > ⚠️ **Importante:** questo file non è nel repository. Ognuno usa quello del proprio progetto Firebase.
+   > ⚠️ **Important:** this file is not in the repository. Everyone uses the one from their own Firebase project.
 
-### 2️⃣ Pannello di amministrazione
+### 2️⃣ Admin panel
 
-Catalogo e utenti si gestiscono dal pannello locale in [`tools/admin-panel/`](tools/admin-panel/README.md):
+The catalog and the users are managed from the local panel in [`tools/admin-panel/`](tools/admin-panel/README.md):
 
 ```powershell
 cd tools/admin-panel
@@ -91,126 +93,126 @@ npm install
 npm start
 ```
 
-Apri http://127.0.0.1:3002 (il pannello ascolta solo sul tuo computer), poi:
+Open http://127.0.0.1:3002 (the panel only listens on your own computer), then:
 
-1. **Impostazioni** → carica la chiave del service account Firebase (Impostazioni progetto → Account di servizio → Genera nuova chiave privata). Viene salvata in `tools/admin-panel/.secrets/`, esclusa da git: non va mai condivisa
-2. **Utenti** → crea un utente con username, password e limite di download giornaliero
-3. **Catalogo** → carica gli MP3 per quell'utente, con copertina facoltativa. Ogni brano viene portato allo stesso volume percepito (−14 LUFS) con ffmpeg prima del caricamento
+1. **Settings** (*Impostazioni*) → upload the Firebase service account key (Project settings → Service accounts → Generate new private key). It is saved in `tools/admin-panel/.secrets/`, excluded from git: never share it
+2. **Users** (*Utenti*) → create a user with username, password and daily download limit
+3. **Catalog** (*Catalogo*) → upload MP3s for that user, with optional cover art. Every song is brought to the same perceived loudness (−14 LUFS) with ffmpeg before uploading
 
-### 3️⃣ Avvia l'app
+### 3️⃣ Run the app
 
-Apri il progetto in Android Studio (**File → Open**), lascia sincronizzare Gradle e avvia su un dispositivo o emulatore Android 8.0+, oppure da terminale:
+Open the project in Android Studio (**File → Open**), let Gradle sync and run it on an Android 8.0+ device or emulator, or from a terminal:
 
 ```bash
 ./gradlew installDebug
 ```
 
-Nell'app apri **Sfoglia** e accedi con l'utente creato nel pannello.
+In the app open **Browse** (*Sfoglia*) and sign in with the user created in the panel.
 
-### Dati su Firebase (scritti dal pannello)
+### Data on Firebase (written by the panel)
 
 ```
 songs/{songId}
   title, artist
-  duration          // millisecondi
-  storagePath       // es. "songs/<id>.mp3"
-  coverUrl          // URL di download della copertina (vuoto se non c'è)
+  duration          // milliseconds
+  storagePath       // e.g. "songs/<id>.mp3"
+  coverUrl          // download URL of the cover art (empty if there is none)
   fileSizeBytes
-  userName          // proprietario: il catalogo di un utente sono i brani con il suo username
+  userName          // owner: a user's catalog is the set of songs with their username
 
 users/{userId}
   username
-  passwordHash      // SHA-256 esadecimale, calcolato nel browser dal pannello
+  passwordHash      // hex SHA-256, computed in the browser by the panel
   dailyDownloadLimit, downloadedToday, lastDownloadDate ("yyyy-MM-dd")
 
 Storage: songs/<id>.mp3, covers/<id>.jpg
 ```
 
-### Regole di sicurezza
+### Security rules
 
-Le regole sono in [`firebase/firestore.rules`](firebase/firestore.rules) e [`firebase/storage.rules`](firebase/storage.rules): copiale nella Firebase Console (**Firestore Database → Regole** e **Storage → Regole**) e premi **Pubblica**.
+The rules are in [`firebase/firestore.rules`](firebase/firestore.rules) and [`firebase/storage.rules`](firebase/storage.rules): copy them into the Firebase Console (**Firestore Database → Rules** and **Storage → Rules**) and click **Publish**.
 
-- **Firestore:** l'app può leggere i brani, cercare un utente per username (un documento alla volta) e aggiornare solo `downloadedToday` e `lastDownloadDate`. Username, password e limite giornaliero si cambiano solo dal pannello.
-- **Storage:** l'app può scaricare i file uno per uno; nessuno può elencarli, caricarli o cancellarli dal telefono.
-- Il pannello usa l'Admin SDK, che non passa da queste regole.
+- **Firestore:** the app can read songs, look up a user by username (one document at a time) and update only `downloadedToday` and `lastDownloadDate`. Username, password and daily limit can only be changed from the panel.
+- **Storage:** the app can download files one by one; nobody can list, upload or delete them from the phone.
+- The panel uses the Admin SDK, which bypasses these rules.
 
-> ⚠️ Senza Firebase Auth le regole non sanno chi sta chiedendo: chi conosce il progetto può ancora leggere un utente (compreso l'hash della password) e azzerare il proprio contatore dei download. Per un uso con altre persone servono Firebase Auth e App Check (vedi le estensioni future).
+> ⚠️ Without Firebase Auth the rules don't know who is asking: anyone who knows the project can still read a user (including the password hash) and reset their own download counter. For use with other people you need Firebase Auth and App Check (see future extensions).
 
-## 📁 Struttura del progetto
+## 📁 Project structure
 
 ```
 app/src/main/java/com/example/musicplayer/
 ├── data/
 │   ├── remote/            # RemoteSong, RemoteUser, RemoteSongRepository (Firestore + Storage)
-│   ├── local/             # Room: brani scaricati, catalogo in cache, playlist (AppDatabase, versione 6)
-│   └── repository/        # SongRepository (download, catalogo, libreria), UserRepository (accesso, limite giornaliero)
+│   ├── local/             # Room: downloaded songs, cached catalog, playlists (AppDatabase, version 6)
+│   └── repository/        # SongRepository (downloads, catalog, library), UserRepository (sign-in, daily limit)
 ├── playback/
 │   ├── PlaybackService.kt # MediaSessionService + ExoPlayer
-│   ├── controller/        # PlayerController (ponte UI ↔ servizio via MediaController)
+│   ├── controller/        # PlayerController (UI ↔ service bridge via MediaController)
 │   └── analysis/          # MonoDecoder, Fft, AudioAnalyzer (MZ), HarmonyAnalyzer + HarmonyResult (CZ),
 │                          # EnergyTimeline (FZ), AnalysisCacheCleaner
 ├── ui/
-│   ├── catalog/           # Sfoglia: accesso, catalogo, download
-│   ├── library/           # Libreria
-│   ├── playlist/          # elenco e dettaglio playlist
-│   ├── player/            # mini player e player
+│   ├── catalog/           # Browse: sign-in, catalog, downloads
+│   ├── library/           # Library
+│   ├── playlist/          # playlist list and detail
+│   ├── player/            # mini player and player
 │   ├── musiczone/         # MZ: CanonVisualizer, NebulaBackground, CoverPalette
 │   ├── circlezone/        # CZ: CircleWheel, WheelLayout, NoteSpeller, CircleHud
 │   ├── firewatch/         # FZ: FirewatchScene, FirewatchSky, FirewatchWorld
-│   ├── zone/              # ZoneMode, ZoneChrome, ZoneSettings (comuni alle tre Zone)
-│   ├── components/        # SongItem, ArtistFilter, menu e finestre dei brani, MarqueeText
-│   ├── settings/, help/   # Impostazioni e Guida
-│   └── theme/             # tema nero e viola
-├── navigation/            # NavGraph (barra in basso, mini player)
+│   ├── zone/              # ZoneMode, ZoneChrome, ZoneSettings (shared by the three Zones)
+│   ├── components/        # SongItem, ArtistFilter, song menus and dialogs, MarqueeText
+│   ├── settings/, help/   # Settings and Guide
+│   └── theme/             # black and purple theme
+├── navigation/            # NavGraph (bottom bar, mini player)
 ├── di/                    # AppModule (Hilt: Firebase, Room)
 ├── MainActivity.kt
 └── MusicApp.kt            # Application @HiltAndroidApp
 
-tools/admin-panel/         # pannello locale (Express) per catalogo, utenti e chiave Firebase
-firebase/                  # regole di sicurezza di Firestore e Storage
-video/                     # video del progetto (Remotion)
+tools/admin-panel/         # local panel (Express) for catalog, users and Firebase key
+firebase/                  # Firestore and Storage security rules
+video/                     # project videos (Remotion)
 ```
 
-## 🔍 Note implementative
+## 🔍 Implementation notes
 
-- Il **download** controlla prima il limite giornaliero, poi scarica l'audio, la copertina e salva la riga in Room; in caso di errore i file parziali vengono cancellati
-- La **Libreria** legge solo da Room tramite `Flow`, quindi funziona al 100% offline
-- La **pressione prolungata** su un brano apre il menu delle azioni; la modifica di titolo e artista resta sul telefono e il brano risulta comunque scaricato
-- La **riproduzione in background** è gestita da `PlaybackService` (MediaSessionService), che espone la notifica media di Media3
-- Il permesso `POST_NOTIFICATIONS` viene chiesto a runtime da Android 13; il microfono non serve
-- Il nome visibile è **Canone**, ma l'identificativo resta `com.example.musicplayer`, per non perdere libreria e playlist già sul telefono (va cambiato solo per pubblicare sul Play Store)
+- A **download** first checks the daily limit, then fetches the audio and the cover art and saves the row in Room; on error, partial files are deleted
+- The **Library** reads only from Room via `Flow`, so it works 100% offline
+- A **long press** on a song opens its actions menu; editing title and artist stays on the phone and the song still counts as downloaded
+- **Background playback** is handled by `PlaybackService` (MediaSessionService), which exposes Media3's media notification
+- The `POST_NOTIFICATIONS` permission is requested at runtime from Android 13; the microphone is not needed
+- The visible name is **Canone**, but the identifier is still `com.example.musicplayer`, so that the library and playlists already on the phone are not lost (it only needs to change for a Play Store release)
 
-## 🚧 Possibili estensioni future
+## 🚧 Possible future extensions
 
-### 🔐 Sicurezza informatica
-Passare a Firebase Auth al posto dell'hash SHA-256 senza sale, con regole di sicurezza su Firestore e Storage che permettano a ogni utente di leggere solo i propri dati. Spostare il limite di download sul server (oggi è controllato solo dall'app) e aggiungere App Check per prevenire abusi.
+### 🔐 Security
+Move to Firebase Auth instead of the unsalted SHA-256 hash, with Firestore and Storage security rules that let each user read only their own data. Move the download limit to the server (today it is enforced only by the app) and add App Check to prevent abuse.
 
-### 🎚️ Equalizzatore audio
-Integrare un equalizzatore grafico a bande multiple con preset (Pop, Rock, Jazz, Classica…), controllo separato di bassi e alti ed effetti aggiuntivi (reverb, virtualizer, bass boost) tramite l'API AudioEffects di Android.
+### 🎚️ Audio equalizer
+Add a multi-band graphic equalizer with presets (Pop, Rock, Jazz, Classical…), separate bass and treble controls and extra effects (reverb, virtualizer, bass boost) through Android's AudioEffects API.
 
-### 🎶 Suggerimenti
-Usare tonalità, tempo ed energia già calcolati dalle Zone per proporre il brano successivo più adatto (“potrebbe piacerti anche…”) o costruire playlist per atmosfera.
+### 🎶 Recommendations
+Use the key, tempo and energy already computed by the Zones to suggest the best next song (“you might also like…”) or to build mood-based playlists.
 
-## 🤝 Contribuire
+## 🤝 Contributing
 
-I contributi sono benvenuti! Per contribuire:
+Contributions are welcome! To contribute:
 
-1. Fai un **Fork** del progetto
-2. Crea un branch per la tua feature (`git checkout -b feature/nuova-feature`)
-3. Committa le modifiche (`git commit -m "Aggiunta nuova feature"`)
-4. Pusha sul branch (`git push origin feature/nuova-feature`)
-5. Apri una **Pull Request**
+1. **Fork** the project
+2. Create a branch for your feature (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m "Add new feature"`)
+4. Push the branch (`git push origin feature/new-feature`)
+5. Open a **Pull Request**
 
-## 📄 Licenza
+## 📄 License
 
-Questo progetto è distribuito sotto licenza **MIT**. Vedi il file [LICENSE](LICENSE) per maggiori dettagli.
+This project is released under the **MIT** license. See the [LICENSE](LICENSE) file for details.
 
-**Crediti:** la chiave di sol dell'icona è il tracciato `music-clef-treble` di [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0).
+**Credits:** the treble clef in the icon is the `music-clef-treble` path from [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0).
 
-**Brani nei video:** "84" e "Celestial Citadel", i cui estratti si sentono nei video in `video/out/` e nei file audio in `video/public/canone/`, sono composizioni originali di Federico, © tutti i diritti riservati. **Non sono coperti dalla licenza MIT**: non possono essere riusati, ridistribuiti o modificati senza permesso.
+**Songs in the videos:** "84" and "Celestial Citadel", whose excerpts can be heard in the videos in `video/out/` and in the audio files in `video/public/canone/`, are original compositions by Federico, © all rights reserved. **They are not covered by the MIT license**: they may not be reused, redistributed or modified without permission.
 
 ---
 
 <p align="center">
-  <sub>Realizzato con ❤️ usando Kotlin e Jetpack Compose</sub>
+  <sub>Made with ❤️ using Kotlin and Jetpack Compose</sub>
 </p>
