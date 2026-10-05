@@ -126,21 +126,15 @@ users/{userId}
 Storage: songs/<id>.mp3, covers/<id>.jpg
 ```
 
-### Regole di sicurezza (solo per prova)
+### Regole di sicurezza
 
-L'app legge `songs` e `users` dal telefono e aggiorna il conteggio dei download in `users`:
+Le regole sono in [`firebase/firestore.rules`](firebase/firestore.rules) e [`firebase/storage.rules`](firebase/storage.rules): copiale nella Firebase Console (**Firestore Database → Regole** e **Storage → Regole**) e premi **Pubblica**.
 
-```
-// Firestore
-match /songs/{songId} { allow read: if true; }
-match /users/{userId} { allow read, update: if true; }
+- **Firestore:** l'app può leggere i brani, cercare un utente per username (un documento alla volta) e aggiornare solo `downloadedToday` e `lastDownloadDate`. Username, password e limite giornaliero si cambiano solo dal pannello.
+- **Storage:** l'app può scaricare i file uno per uno; nessuno può elencarli, caricarli o cancellarli dal telefono.
+- Il pannello usa l'Admin SDK, che non passa da queste regole.
 
-// Storage
-match /songs/{fileName} { allow read: if true; }
-match /covers/{fileName} { allow read: if true; }
-```
-
-> ⚠️ Con queste regole chiunque conosca il progetto può leggere gli hash delle password e cambiare i contatori: vanno bene solo per uso personale o di prova. Per un uso reale servono Firebase Auth, regole più strette e App Check (vedi le estensioni future).
+> ⚠️ Senza Firebase Auth le regole non sanno chi sta chiedendo: chi conosce il progetto può ancora leggere un utente (compreso l'hash della password) e azzerare il proprio contatore dei download. Per un uso con altre persone servono Firebase Auth e App Check (vedi le estensioni future).
 
 ## 📁 Struttura del progetto
 
@@ -173,6 +167,7 @@ app/src/main/java/com/example/musicplayer/
 └── MusicApp.kt            # Application @HiltAndroidApp
 
 tools/admin-panel/         # pannello locale (Express) per catalogo, utenti e chiave Firebase
+firebase/                  # regole di sicurezza di Firestore e Storage
 video/                     # video del progetto (Remotion)
 ```
 

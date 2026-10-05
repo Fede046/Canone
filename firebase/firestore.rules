@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// Regole di Firestore per Canone.
+// Il pannello di amministrazione usa l'Admin SDK, che non passa da queste regole:
+// valgono solo per l'app (e per chiunque usi la configurazione del progetto).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Brani: l'app legge il catalogo dell'utente; nessuno può scrivere dal telefono.
+    match /songs/{songId} {
+      allow read: if true;
+    }
+
+    // Utenti: l'app cerca l'utente per username (un documento alla volta, limit(1))
+    // e aggiorna solo il contatore dei download. Username, password e limite
+    // giornaliero si cambiano solo dal pannello.
+    match /users/{userId} {
+      allow get: if true;
+      allow list: if request.query.limit <= 1;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['downloadedToday', 'lastDownloadDate'])
+                    && request.resource.data.downloadedToday is int
+                    && request.resource.data.downloadedToday >= 0
+                    && request.resource.data.lastDownloadDate is string;
+    }
+
+    // Tutto il resto è vietato (nessuna regola corrispondente = accesso negato).
+  }
+}

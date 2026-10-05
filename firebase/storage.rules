@@ -1,0 +1,17 @@
+rules_version = '2';
+
+// Regole di Storage per Canone.
+// L'app scarica i file uno per uno; nessuno può elencarli, caricarli o cancellarli
+// dal telefono. Il pannello usa l'Admin SDK, che non passa da queste regole.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /songs/{fileName} {
+      allow get: if true;
+    }
+    match /covers/{fileName} {
+      allow get: if true;
+    }
+
+    // Tutto il resto è vietato (nessuna regola corrispondente = accesso negato).
+  }
+}
