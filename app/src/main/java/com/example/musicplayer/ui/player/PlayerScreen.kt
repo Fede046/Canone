@@ -3,6 +3,7 @@ package com.example.musicplayer.ui.player
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -155,11 +156,21 @@ fun ExpandedPlayerScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
-        SongCover(localCoverPath = playback.coverPath, remoteCoverUrl = playback.coverUrl, modifier = Modifier.size(300.dp))
+        // La copertina prende lo spazio che resta (al massimo 300 dp): sugli schermi bassi,
+        // o con caratteri e visualizzazione ingranditi, si rimpicciolisce lei e non i controlli
+        BoxWithConstraints(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            val coverSize = minOf(maxWidth, maxHeight, 300.dp)
+            SongCover(localCoverPath = playback.coverPath, remoteCoverUrl = playback.coverUrl, modifier = Modifier.size(coverSize))
+        }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         MarqueeText(
             text = if (playback.title.isNotEmpty()) playback.title else "Sconosciuto",
@@ -176,7 +187,7 @@ fun ExpandedPlayerScreen(
             pauseMs = 1500
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(16.dp))
 
         PlaybackProgress(
             isPlaying = playback.isPlaying,
@@ -224,16 +235,18 @@ fun ExpandedPlayerScreen(
             }
         }
 
-        // Riga secondaria: Shuffle | Repeat | Timer | MZ | CZ | FZ
+        // Riga secondaria: Shuffle | Repeat | Timer | MZ | CZ | FZ.
+        // Ogni pulsante ha una parte uguale della larghezza, così nessuno esce dallo schermo
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
+            verticalAlignment = Alignment.CenterVertically
         ) {
+            val slot = Modifier.weight(1f)
+
             // Pulsante Shuffle
-            IconButton(onClick = { viewModel.toggleShuffle() }) {
+            IconButton(onClick = { viewModel.toggleShuffle() }, modifier = slot) {
                 Icon(
                     imageVector = Icons.Default.Shuffle,
                     contentDescription = "Casuale",
@@ -242,7 +255,7 @@ fun ExpandedPlayerScreen(
             }
 
             // Pulsante Repeat (cicla OFF -> ONE -> ALL -> OFF)
-            IconButton(onClick = { viewModel.toggleRepeatMode() }) {
+            IconButton(onClick = { viewModel.toggleRepeatMode() }, modifier = slot) {
                 Icon(
                     imageVector = when (playback.repeatMode) {
                         Player.REPEAT_MODE_ONE -> Icons.Default.RepeatOne
@@ -258,12 +271,12 @@ fun ExpandedPlayerScreen(
                 )
             }
 
-            SleepTimerButton(viewModel = viewModel)
+            SleepTimerButton(viewModel = viewModel, modifier = slot)
 
             // Music Zone, Circle Zone e Firewatch Zone: visualizzatori a schermo intero; restano attivi anche per i brani successivi
-            ZoneButton("MZ", "Music Zone", activeZone == Zone.MUSIC) { onOpenZone(Zone.MUSIC) }
-            ZoneButton("CZ", "Circle Zone", activeZone == Zone.CIRCLE) { onOpenZone(Zone.CIRCLE) }
-            ZoneButton("FZ", "Firewatch Zone", activeZone == Zone.FIRE) { onOpenZone(Zone.FIRE) }
+            ZoneButton("MZ", "Music Zone", activeZone == Zone.MUSIC, slot) { onOpenZone(Zone.MUSIC) }
+            ZoneButton("CZ", "Circle Zone", activeZone == Zone.CIRCLE, slot) { onOpenZone(Zone.CIRCLE) }
+            ZoneButton("FZ", "Firewatch Zone", activeZone == Zone.FIRE, slot) { onOpenZone(Zone.FIRE) }
         }
     }
 
@@ -277,11 +290,19 @@ fun ExpandedPlayerScreen(
 
 /** Tasto testuale di una modalità a schermo intero (MZ, CZ): colorato quando è attiva. */
 @Composable
-private fun ZoneButton(label: String, description: String, isActive: Boolean, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
+private fun ZoneButton(
+    label: String,
+    description: String,
+    isActive: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    IconButton(onClick = onClick, modifier = modifier) {
         Text(
             text = label,
             fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            softWrap = false,
             style = MaterialTheme.typography.titleMedium,
             color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.semantics { contentDescription = description }
@@ -430,14 +451,14 @@ private fun CreatePlaylistDialog(onDismiss: () -> Unit, onConfirm: (String) -> U
  * e con un click lo cancella. Se non è attivo mostra un dialog per impostarlo.
  */
 @Composable
-private fun SleepTimerButton(viewModel: PlayerViewModel) {
+private fun SleepTimerButton(viewModel: PlayerViewModel, modifier: Modifier = Modifier) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val sleepTimerMs = uiState.sleepTimerRemainingMs
     var showDialog by remember { mutableStateOf(false) }
 
     if (sleepTimerMs > 0) {
         // Timer attivo: mostra minuti rimanenti, click per cancellare
-        IconButton(onClick = { viewModel.cancelSleepTimer() }) {
+        IconButton(onClick = { viewModel.cancelSleepTimer() }, modifier = modifier) {
             Box {
                 Icon(
                     imageVector = Icons.Default.Timer,
@@ -454,7 +475,7 @@ private fun SleepTimerButton(viewModel: PlayerViewModel) {
         }
     } else {
         // Nessun timer
-        IconButton(onClick = { showDialog = true }) {
+        IconButton(onClick = { showDialog = true }, modifier = modifier) {
             Icon(
                 imageVector = Icons.Default.Timer,
                 contentDescription = "Sleep timer",
