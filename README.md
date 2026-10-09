@@ -11,7 +11,9 @@ A Spotify-style Android music app, black and purple, written in **Kotlin** with 
 Sign in with the account created in the admin panel, download the songs of your Firebase catalog to listen offline forever, organize them into playlists and **watch them play**: three full-screen *Zones* (**MZ**, **CZ**, **FZ**) analyze every song directly on the phone and turn it into visuals.
 
 <!-- Video "For everyone": replace the line below with the link GitHub creates when you upload canone-public-github.mp4 -->
-VIDEO_FOR_EVERYONE_URL
+https://github.com/user-attachments/assets/f7961929-776c-4a89-9d31-8fb26aeb7bd0
+
+
 
 > The app's interface is in Italian; in this README the Italian labels are given in *italics* next to their English meaning.
 
