@@ -10,16 +10,19 @@
 A Spotify-style Android music app, black and purple, written in **Kotlin** with **Jetpack Compose**.
 Sign in with the account created in the admin panel, download the songs of your Firebase catalog to listen offline forever, organize them into playlists and **watch them play**: three full-screen *Zones* (**MZ**, **CZ**, **FZ**) analyze every song directly on the phone and turn it into visuals.
 
+<!-- Video "For everyone": replace the line below with the link GitHub creates when you upload canone-public-github.mp4 -->
+VIDEO_FOR_EVERYONE_URL
+
 > The app's interface is in Italian; in this README the Italian labels are given in *italics* next to their English meaning.
 
 ---
 
 ## 🎬 Videos
 
-| | Horizontal (README, YouTube) | Vertical (social) |
-|---|---|---|
-| **For everyone** — *See what you hear.* (61 s) | [canone-public-horizontal.mp4](video/out/canone-public-horizontal.mp4) | [canone-public-vertical.mp4](video/out/canone-public-vertical.mp4) |
-| **For developers** — *Know every beat before it plays.* (82 s): setup, admin panel, how the Zones work | [canone-dev-horizontal.mp4](video/out/canone-dev-horizontal.mp4) | [canone-dev-vertical.mp4](video/out/canone-dev-vertical.mp4) |
+- **For everyone** — *See what you hear.* (61 s): the video at the top of this page
+- **For developers** — *Know every beat before it plays.* (82 s): setup, admin panel, how the Zones work
+
+[![Canone for developers — Know every beat before it plays](https://img.youtube.com/vi/wQ7tEq2HEVA/maxresdefault.jpg)](https://youtu.be/wQ7tEq2HEVA)
 
 The videos are made with [Remotion](https://www.remotion.dev) in the [`video/`](video/README.md) folder, with a soundtrack synthesized in code and excerpts from two original songs by the author, "84" and "Celestial Citadel". The Zones you see are driven by the real analysis of these two songs, computed with the same algorithm as the app.
 
@@ -209,7 +212,7 @@ This project is released under the **MIT** license. See the [LICENSE](LICENSE) f
 
 **Credits:** the treble clef in the icon is the `music-clef-treble` path from [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0).
 
-**Songs in the videos:** "84" and "Celestial Citadel", whose excerpts can be heard in the videos in `video/out/` and in the audio files in `video/public/canone/`, are original compositions by Federico, © all rights reserved. **They are not covered by the MIT license**: they may not be reused, redistributed or modified without permission.
+**Songs in the videos:** "84" and "Celestial Citadel", whose excerpts can be heard in the videos and in the audio files in `video/public/canone/`, are original compositions by Federico, © all rights reserved. **They are not covered by the MIT license**: they may not be reused, redistributed or modified without permission.
 
 ---
 

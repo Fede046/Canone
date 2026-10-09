@@ -13,9 +13,12 @@ shared by the animations and the audio script, so cuts, accents and sound effect
 | `Canone-Dev-Vertical` | 1080×1920 | `out/canone-dev-vertical.mp4` | same, social |
 | `Explainer-Horizontal` / `-Vertical` | | `out/explainer-*.mp4` | older 40 s explainer, from before the rename (“Music Player”) |
 | `Showreel-Horizontal` / `-Vertical` / `-GIF` | | `out/showreel-*` | older 15 s teaser, from before the rename |
+| `Canone-Thumbnail` | 1280×720 | `out/canone-thumbnail.png` | YouTube thumbnail of the developer video (still: `npx remotion still Canone-Thumbnail out/canone-thumbnail.png`) |
 | `Canone-ZonesTest` | 1920×1080 | — | development aid: the three Zones, fast and calm song, side by side |
 
 All MP4s are H.264 + AAC, soundtrack at −14 LUFS with a clean fade-out.
+
+The rendered files in `out/` are not in git (they are too heavy): render them yourself, or watch them from the main [README](../README.md) (GitHub player and YouTube).
 
 ## Setup (once)
 
