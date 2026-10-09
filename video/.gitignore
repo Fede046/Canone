@@ -3,3 +3,7 @@ out/frames/
 out/.gif-source.mp4
 # Full source songs for the Canone videos (only short excerpts go in public/canone/)
 songs/
+# Rendered videos: too heavy for git (the README links GitHub and YouTube)
+out/*.mp4
+out/*.gif
+out/*.png
