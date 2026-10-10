@@ -1,3 +1,26 @@
+## 💭 Why I built it
+
+I was tired of paying subscriptions and sitting through ads just to listen to music, so I built a way to
+listen to my own music independently, straight from the phone's storage, which is often bigger than we need.
+The visual part is there purely for fun: I've always loved videos that show what a song looks like, and
+sometimes I just wanted to see my songs too, so I added it.
+
+I made the app and the video with the help of AI. It took a while, but I'm happy with how both turned out.
+I know there's room for improvement, but I had fun building it and, above all, it's useful to me.
+
+### A note for the future
+
+I've often wondered whether it's still worth studying programming. My answer is yes (I'm nobody, XD).
+If we picture AI as a creature we don't fully understand and that is frighteningly good, the instinct may be
+to run away. But running from a problem only gives you false reassurance, and over time that leaves you
+exposed to surprises from places you didn't even know about. The second reason is simpler: it still amazes me
+that you can build so much with nothing physical, just small apps like this one, and I think we're
+forgetting that lately.
+
+Ciao =)
+
+
+
 # 🎵 Canone
 
 [![Android](https://img.shields.io/badge/Android-34-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
